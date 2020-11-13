@@ -1,0 +1,115 @@
+
+
+CONSULTAS
+
+1. Listar todos los mensajes de un hashtag dado en orden cronológico
+
+PREFIX  class: <http://example.com/class/>
+PREFIX  prop:  <http://example.com/property/> 
+PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?message ?hashtag ?date
+WHERE { ?message rdf:type class:Message .
+?message prop:hashtag ?hashtag.
+?message prop:date ?date
+FILTER regex(?hashtag, "amistad", "i")  }
+ORDER BY ASC(?date)
+
+
+
+
+2. Listar los mensajes que un usuario dado puso desde el 1º de mayo de 2018 y, en caso de haber recibido
+réplicas a esos mensajes, el texto de las réplicas.
+
+
+PREFIX  class: <http://example.com/class/>
+PREFIX  prop:  <http://example.com/property/> 
+PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user ?username ?message ?content ?date ?rcontent
+WHERE { ?user rdf:type class:User.
+?user prop:username ?username.
+?message rdf:type class:Message .
+?user prop:writes ?message.
+?message prop:date ?date.
+?message prop:content ?content
+OPTIONAL { ?message prop:response ?resp.
+           ?resp    prop:content  ?rcontent}.
+FILTER regex(?username, "alejandro@example.com", "i")
+FILTER (?date>="2018-05-01"^^xsd:date)
+}
+
+
+
+3. Listar los países de los usuarios que han hecho retweet de los mensajes que han puesto usuarios que viven en
+Colombia
+
+
+PREFIX  res:   <http://example.com/resource/> 
+PREFIX  class: <http://example.com/class/>
+PREFIX  prop:  <http://example.com/property/> 
+PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?username ?country ?message ?content ?date ?username_ret ?date_ret ?country_ret
+WHERE { ?user rdf:type class:User.
+?message rdf:type class:Message .
+?country rdf:type class:Country .
+?message prop:content ?content.
+?message prop:date ?date.
+?user prop:username ?username.
+?user prop:writes ?message.
+?user prop:country ?country.
+?message prop:retweet ?ret.
+?ret    prop:user  ?user_ret.
+?ret    prop:date  ?date_ret.
+?user_ret rdf:type class:User.
+?user_ret prop:username ?username_ret.
+?country_ret rdf:type class:Country.
+?user_ret prop:country ?country_ret.
+FILTER(regex(str(?country), "Colombia" ) )
+}
+
+4. Encontrar la cadena de seguidores de un usuario dado, es decir, los seguidores del usuario, los seguidores de
+sus seguidores, los seguidores de los seguidores de sus seguidores, etc.
+
+
+PREFIX  class: <http://example.com/class/>
+PREFIX  prop:  <http://example.com/property/> 
+PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?followers ?names
+WHERE { 
+  ?follower prop:following/prop:user/prop:username "alejandro@example.com"@en.
+  ?followers prop:username ?names.
+  ?followers (prop:following/prop:user)* ?follower.
+  
+}
+
+
+
+5. Encontrar el origen de un tweet que fue re-enviado varias veces, dada una de las ocurrencias del reenvío.
+Listar la fecha del tweet original y el nombre del usuario que lo generó. Tener en cuenta que el retweet puede
+ser en varios niveles, es decir el Usuario A pone el tweet, el usuario B hace el retweet, el usuario C hace
+retweet del retweet del usuario B, y así sucesivamente. En ese caso se considera que B y C hicieron retweet
+del tweet puesto por el usuario A, por lo tanto, el origen es el tweet que puso el usuario A.
+
+PREFIX  class: <http://example.com/class/>
+PREFIX  prop:  <http://example.com/property/> 
+PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?user_ret ?date_ret ?message ?content ?autor ?name ?date
+WHERE { 
+  ?autor prop:username ?name.
+  ?message prop:date ?date.
+  ?message prop:content ?content.
+  ?message ^prop:writes ?autor.
+  ?user_ret prop:username "carolina@example.com"@en.
+  ?user_ret ^prop:user/prop:date ?date_ret.
+  ?user_ret ^prop:user/^prop:retweet ?message
+  
+}

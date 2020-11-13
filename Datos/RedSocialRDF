@@ -1,0 +1,238 @@
+@prefix  res:   <http://example.com/resource/> .
+@prefix  ex:    <http://example.com/> .
+@prefix  class: <http://example.com/class/> .
+@prefix  prop:  <http://example.com/property/> .
+@prefix  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix  xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+res:Colombia rdf:type class:Country .
+res:Estados_Unidos rdf:type class:Country .
+res:Mexico rdf:type class:Country .
+
+
+res:user1 rdf:type class:User .
+res:user2 rdf:type class:User .
+res:user3 rdf:type class:User .
+res:user4 rdf:type class:User .
+res:user5 rdf:type class:User .
+res:user6 rdf:type class:User .
+res:user7 rdf:type class:User .
+res:user8 rdf:type class:User .
+res:user9 rdf:type class:User .
+res:user10 rdf:type class:User .
+
+res:message1 rdf:type class:Message .
+res:message2 rdf:type class:Message .
+res:message3 rdf:type class:Message .
+res:message4 rdf:type class:Message .
+res:message5 rdf:type class:Message .
+res:message6 rdf:type class:Message .
+res:message7 rdf:type class:Message .
+res:message8 rdf:type class:Message .
+res:message9 rdf:type class:Message .
+res:message10 rdf:type class:Message .
+res:message11 rdf:type class:Message .
+res:message12 rdf:type class:Message .
+
+
+res:user1 prop:username "alejandro@example.com"@en .
+res:user1 prop:password "pass123"@en .
+res:user1 prop:profile "private"@en .
+res:user1 prop:country res:Colombia .
+res:user1 prop:date "2016-02-24"^^xsd:date .
+
+res:user1 prop:following _:u1a.
+_:u1a prop:date "2020-10-02"^^xsd:date .
+_:u1a prop:user res:user4.
+
+
+res:user1 prop:writes res:message1 .
+res:message1 prop:content "Hola ¿Cómo estas?"@es .
+res:message1 prop:date "2020-03-02"^^xsd:date .
+res:message1 prop:hashtag "amistad"@es .
+res:message1 prop:hashtag "saludo"@es .
+
+res:user1 prop:writes res:message2 .
+res:message2 prop:content "Mis amigos son lo mejor del mundo"@es .
+res:message2 prop:date "2018-05-02"^^xsd:date .
+res:message2 prop:hashtag "amistad"@es .
+
+res:user1 prop:writes res:message11 .
+res:message11 prop:content "Volviendo a las redes sociales"@es .
+res:message11 prop:date "2018-04-01"^^xsd:date .
+
+
+res:message1 prop:retweet _:m1rt1.
+_:m1rt1 prop:date "2020-03-02"^^xsd:date .
+_:m1rt1 prop:user res:user2.
+
+res:message1 prop:retweet _:m1rt2.
+_:m1rt2 prop:date "2020-11-02"^^xsd:date .
+_:m1rt2 prop:user res:user8.
+
+res:message1 prop:retweet _:m1rt3.
+_:m1rt3 prop:date "2020-11-02"^^xsd:date .
+_:m1rt3 prop:user res:user7.
+
+
+res:message1 prop:response _:m1rp1.
+_:m1rp1 prop:date "2020-03-02"^^xsd:date .
+_:m1rp1 prop:user res:user2.
+_:m1rp1 prop:content "Bien, ¿Y tú?"@es .
+
+
+res:user2 prop:username "fernanda@example.com"@en .
+res:user2 prop:password "pass123"@en .
+res:user2 prop:profile "public"@en .
+res:user2 prop:country res:Colombia .
+res:user2 prop:date "2016-02-15"^^xsd:date .
+
+res:user2 prop:following _:u2a.
+_:u2a prop:date "2020-10-02"^^xsd:date .
+_:u2a prop:user res:user1.
+
+
+
+res:user2 prop:writes res:message3 .
+res:message3 prop:content "La reactivación económica esta más complicada por el tema de la pandemia"@es .
+res:message3 prop:date "2020-03-05"^^xsd:date .
+res:message3 prop:hashtag "pandemia"@es .
+res:message3 prop:hashtag "economia"@es .
+res:message3 prop:hashtag "reactivación"@es .
+
+res:message3 prop:retweet _:m3rt1.
+_:m3rt1 prop:date "2020-03-06"^^xsd:date .
+_:m3rt1 prop:user res:user1.
+
+res:message3 prop:retweet _:m3rt2.
+_:m3rt2 prop:date "2020-03-06"^^xsd:date .
+_:m3rt2 prop:user res:user3.
+
+
+
+
+res:message3 prop:response _:m3rp1.
+_:m3rp1 prop:date "2020-03-06"^^xsd:date .
+_:m3rp1 prop:user res:user1.
+_:m3rp1 prop:content "Si totalmente de acuerdo el nivel de ocupación de las camas en UCI esta muy elevado"@es .
+
+res:message3 prop:response _:m3rp2.
+_:m3rp2 prop:date "2020-03-07"^^xsd:date .
+_:m3rp2 prop:user res:user4.
+_:m3rp2 prop:content "En Colombia se debe insistir en el auto cuidado, quedate en casa"@es .
+
+
+res:user3 prop:username "carolina@example.com"@en .
+res:user3 prop:password "pass123"@en .
+res:user3 prop:profile "public"@en .
+res:user3 prop:country res:Colombia .
+res:user3 prop:date "2017-02-23"^^xsd:date .
+
+
+res:user3 prop:following _:u3a.
+_:u3a prop:date "2020-10-02"^^xsd:date .
+_:u3a prop:user res:user1.
+
+res:user4 prop:username "veronica@example.com"@en .
+res:user4 prop:password "pass123"@en .
+res:user4 prop:profile "public"@en .
+res:user4 prop:country res:Colombia .
+res:user4 prop:date "2015-02-22"^^xsd:date .
+
+res:user4 prop:writes res:message5 .
+res:message5 prop:content "El mercado tecnológico universar se encuentra en via de expansión"@es .
+res:message5 prop:date "2020-03-06"^^xsd:date .
+res:message5 prop:hashtag "expansión"@es .
+res:message5 prop:hashtag "economia"@es .
+res:message5 prop:hashtag "tecnologia"@es .
+
+
+res:user5 prop:username "carlos@example.com"@en .
+res:user5 prop:password "pass123"@en .
+res:user5 prop:profile "private"@en .
+res:user5 prop:country res:Mexico .
+res:user5 prop:date "2015-06-30"^^xsd:date .
+
+res:user5 prop:writes res:message6 .
+res:message6 prop:content "El calentamiento global se puede evitar con mejores habitos de reciclaje"@es .
+res:message6 prop:date "2016-12-15"^^xsd:date .
+res:message6 prop:hashtag "caletamiento"@es .
+res:message6 prop:hashtag "reciclaje"@es .
+
+res:user6 prop:username "joe@example.com"@en .
+res:user6 prop:password "pass123"@en .
+res:user6 prop:profile "private"@en .
+res:user6 prop:country res:Estados_Unidos .
+res:user6 prop:date "2020-03-04"^^xsd:date .
+
+
+res:user6 prop:writes res:message7 .
+res:message7 prop:content "Sin sacrificio no hay victoria, unidos podremos salvar el planeta"@es .
+res:message7 prop:date "2017-06-20"^^xsd:date .
+res:message7 prop:hashtag "sacrificio"@es .
+res:message7 prop:hashtag "reciclaje"@es .
+
+res:user7 prop:username "janice@example.com"@en .
+res:user7 prop:password "pass123"@en .
+res:user7 prop:profile "public"@en .
+res:user7 prop:country res:Estados_Unidos .
+res:user7 prop:date "2020-03-04"^^xsd:date .
+
+res:user7 prop:writes res:message8 .
+res:message8 prop:content "Joe Biden supero a Donald Trump en las elecciones precidenciales de los Estados Unidos"@es .
+res:message8 prop:date "2020-11-10"^^xsd:date .
+res:message8 prop:hashtag "sacrificio"@es .
+res:message8 prop:hashtag "elecciones"@es .
+
+res:user8 prop:username "maria@example.com"@en .
+res:user8 prop:password "pass123"@en .
+res:user8 prop:profile "public"@en .
+res:user8 prop:country res:Mexico .
+res:user8 prop:date "2020-03-04"^^xsd:date .
+
+res:user8 prop:writes res:message9 .
+res:message9 prop:content "Kamala Harris, la primera mujer elegida como vicepresidenta de EE. UU."@es .
+res:message9 prop:date "2020-11-10"^^xsd:date .
+res:message9 prop:hashtag "vicepresidenta"@es .
+res:message9 prop:hashtag "elecciones"@es .
+res:message9 prop:hashtag "mujer"@es .
+
+res:user8 prop:following _:u8a.
+_:u8a prop:date "2020-10-02"^^xsd:date .
+_:u8a prop:user res:user10.
+
+res:user9 prop:username "robert@example.com"@en .
+res:user9 prop:password "pass123"@en .
+res:user9 prop:profile "public"@en .
+res:user9 prop:country res:Estados_Unidos .
+res:user9 prop:date "2019-05-12"^^xsd:date .
+
+res:user9 prop:writes res:message10 .
+res:message10 prop:content "Netflix duplicó sus ganancias y sumó 15 millones de suscriptores por la cuarentena del coronavirus"@es .
+res:message10 prop:date "2020-09-16"^^xsd:date .
+res:message10 prop:hashtag "ganancias"@es .
+res:message10 prop:hashtag "suscriptores"@es .
+res:message10 prop:hashtag "cuarentena"@es .
+
+res:user9 prop:following _:u9a.
+_:u9a prop:date "2020-11-05"^^xsd:date .
+_:u9a prop:user res:user10.
+
+res:user10 prop:username "juan@example.com"@en .
+res:user10 prop:password "pass123"@en .
+res:user10 prop:profile "public"@en .
+res:user10 prop:country "public"@en .
+res:user10 prop:country res:Colombia .
+res:user10 prop:date "2019-08-21"^^xsd:date .
+
+res:user10 prop:writes res:message12 .
+res:message12 prop:content "Office 365 trata de una herramienta que nos permite crear, acceder y compartir documentos en la nube"@es .
+res:message12 prop:date "2019-01-04"^^xsd:date .
+res:message12 prop:hashtag "documentos"@es .
+res:message12 prop:hashtag "suscriptores"@es .
+res:message12 prop:hashtag "nube"@es .
+
+res:user10 prop:following _:u10a.
+_:u10a prop:date "2020-10-02"^^xsd:date .
+_:u10a prop:user res:user2.
